@@ -1,3 +1,104 @@
+/* General body styling */
 body {
-    color: black;
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    background-color: #f0f2f5;
+    color: #333;
+    text-align: center;
+}
+
+/* Hero Section Styling (Top half of the page) */
+.hero-section {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    height: 65vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+    position: relative;
+}
+
+.hero-content h1 {
+    font-size: 4rem;
+    font-weight: 600;
+    margin: 0;
+    animation: fadeInDown 1s ease-out;
+}
+
+.hero-content h2 {
+    font-size: 2rem;
+    font-weight: 300;
+    margin-top: 0.5rem;
+    opacity: 0.9;
+    animation: fadeInUp 1s ease-out;
+}
+
+/* Connect Section Styling (Bottom half of the page) */
+.connect-section {
+    padding: 4rem 2rem;
+    background-color: #ffffff;
+}
+
+.connect-section p {
+    font-size: 1.5rem;
+    color: #555;
+    margin-bottom: 2rem;
+    font-weight: 300;
+}
+
+/* Social links container */
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 25px; /* Space between icons */
+}
+
+/* Individual social icon styling */
+.social-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    font-size: 28px;
+    color: #ffffff;
+    text-decoration: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.1);
+}
+
+.social-icon:hover {
+    transform: translateY(-8px) scale(1.1); /* Lifts and slightly enlarges the icon on hover */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* Specific colors for each social network */
+.twitter { background-color: #1DA1F2; }
+.instagram { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); }
+.linkedin { background-color: #0A66C2; }
+.github { background-color: #333; }
+
+/* Keyframe animations for text */
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
