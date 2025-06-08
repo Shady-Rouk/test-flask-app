@@ -1,43 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Farouk's Personal Site</title>
-    <!-- Link to the external stylesheet -->
+    <!-- Link to the single external stylesheet -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <!-- Font Awesome for social media icons -->
+    <!-- Font Awesome for social media icons and Spotify icon -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- Google Fonts for a nicer font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-</head>
-<body>
-    <div class="hero-section">
-        <div class="hero-content">
-            <h1>Hi, my name is Farouk.</h1>
-            <h2>I'm a Software Engineer. 💻</h2>
-        </div>
-    </div>
 
-    <div class="connect-section">
-        <p>Connect with me</p>
-        <!-- Social Media Links -->
-        <div class="social-links">
-            <a href="{{ socials.twitter }}" target="_blank" class="social-icon twitter">
-                <i class="fab fa-twitter"></i>
-            </a>
-            <a href="{{ socials.instagram }}" target="_blank" class="social-icon instagram">
-                <i class="fab fa-instagram"></i>
-            </a>
-            <a href="{{ socials.linkedin }}" target="_blank" class="social-icon linkedin">
-                <i class="fab fa-linkedin-in"></i>
-            </a>
-            <a href="{{ socials.github }}" target="_blank" class="social-icon github">
-                <i class="fab fa-github"></i>
-            </a>
+    <!-- Tailwind CSS CDN remains in HTML for direct access -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // Configure Tailwind CSS for custom fonts and colors
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Poppins', 'Inter', 'sans-serif'], // Use Poppins first, then Inter
+                    },
+                    colors: {
+                        spotifyGreen: '#1DB954', // Define Spotify green for consistency
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div class="main-container">
+        <div class="hero-section">
+            <div class="hero-content">
+                <h1>Hi, my name is Farouk.</h1>
+                <h2>I'm a Software Engineer. 💻</h2>
+            </div>
+        </div>
+
+        <!-- Spotify Now Playing Section -->
+        <div class="spotify-section-container">
+            <div id="now-playing-card"
+                class="p-6 rounded-xl shadow-lg w-full flex flex-col items-center space-y-4 border border-gray-200 transform hover:scale-105 transition-transform duration-300">
+                <h2 class="text-2xl font-bold text-spotifyGreen mb-4 flex items-center gap-2">
+                    Currently listening to <i class="fab fa-spotify text-spotifyGreen"></i>
+                </h2>
+
+                {% if sp_now_playing.is_playing %}
+                <div id="playing-content" class="w-full flex flex-col items-center">
+                    <img id="album-art"
+                        src="{{ sp_now_playing.album_art_url or 'https://placehold.co/150x150/EEEEEE/333333?text=No+Art' }}"
+                        alt="Album Art" class="w-36 h-36 rounded-lg shadow-md mb-4 object-cover border border-gray-300">
+
+                    <div class="text-center w-full">
+                        <a id="track-name-link" href="{{ sp_now_playing.track_url }}" target="_blank"
+                            rel="noopener noreferrer"
+                            class="text-xl font-semibold text-gray-900 hover:text-spotifyGreen transition-colors duration-200 block truncate">{{
+                            sp_now_playing.track_name }}</a>
+                        <p id="artist-name" class="text-gray-600 text-sm truncate">{{ sp_now_playing.artist_name }}</p>
+                        <p id="album-name" class="text-gray-500 text-xs mt-1 truncate">{{ sp_now_playing.album_name }}
+                        </p>
+                    </div>
+                </div>
+                {% else %}
+                <div id="not-playing-message" class="text-gray-600 text-center">
+                    <p class="text-lg">{{ sp_now_playing.message or 'Nothing currently playing on Spotify.' }}</p>
+                    <p class="text-sm mt-2">Check back later!</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="connect-section">
+            <div class="connect-content-wrapper">
+                <p>Connect with me</p>
+                <!-- Social Media Links -->
+                <div class="social-links">
+                    <a href="{{ socials.twitter }}" target="_blank" class="social-icon twitter">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="{{ socials.instagram }}" target="_blank" class="social-icon instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="{{ socials.linkedin }}" target="_blank" class="social-icon linkedin">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="{{ socials.github }}" target="_blank" class="social-icon github">
+                        <i class="fab fa-github"></i>
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 </body>
+
 </html>
