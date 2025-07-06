@@ -50,28 +50,34 @@
                     Currently listening to <i class="fab fa-spotify text-spotifyGreen"></i>
                 </h2>
 
-                {% if sp_now_playing.is_playing %}
-                <div id="playing-content" class="w-full flex flex-col items-center">
-                    <img id="album-art"
-                        src="{{ sp_now_playing.album_art_url or 'https://placehold.co/150x150/EEEEEE/333333?text=No+Art' }}"
-                        alt="Album Art" class="w-36 h-36 rounded-lg shadow-md mb-4 object-cover border border-gray-300">
+                <!-- Container for dynamic Spotify content -->
+                <div id="spotify-dynamic-content" class="w-full flex flex-col items-center">
+                    {% if sp_now_playing.is_playing %}
+                    <div id="playing-content" class="w-full flex flex-col items-center">
+                        <img id="album-art"
+                            src="{{ sp_now_playing.album_art_url or 'https://placehold.co/150x150/EEEEEE/333333?text=No+Art' }}"
+                            alt="Album Art"
+                            class="w-36 h-36 rounded-lg shadow-md mb-4 object-cover border border-gray-300">
 
-                    <div class="text-center w-full">
-                        <a id="track-name-link" href="{{ sp_now_playing.track_url }}" target="_blank"
-                            rel="noopener noreferrer"
-                            class="text-xl font-semibold text-gray-900 hover:text-spotifyGreen transition-colors duration-200 block truncate">{{
-                            sp_now_playing.track_name }}</a>
-                        <p id="artist-name" class="text-gray-600 text-sm truncate">{{ sp_now_playing.artist_name }}</p>
-                        <p id="album-name" class="text-gray-500 text-xs mt-1 truncate">{{ sp_now_playing.album_name }}
-                        </p>
+                        <div class="text-center w-full">
+                            <a id="track-name-link" href="{{ sp_now_playing.track_url }}" target="_blank"
+                                rel="noopener noreferrer"
+                                class="text-xl font-semibold text-gray-900 hover:text-spotifyGreen transition-colors duration-200 block truncate">{{
+                                sp_now_playing.track_name }}</a>
+                            <p id="artist-name" class="text-gray-600 text-sm truncate">{{ sp_now_playing.artist_name }}
+                            </p>
+                            <p id="album-name" class="text-gray-500 text-xs mt-1 truncate">{{ sp_now_playing.album_name
+                                }}
+                            </p>
+                        </div>
                     </div>
+                    {% else %}
+                    <div id="not-playing-message" class="text-gray-600 text-center">
+                        <p class="text-lg">{{ sp_now_playing.message or 'Nothing currently playing on Spotify.' }}</p>
+                        <p class="text-sm mt-2">Check back later!</p>
+                    </div>
+                    {% endif %}
                 </div>
-                {% else %}
-                <div id="not-playing-message" class="text-gray-600 text-center">
-                    <p class="text-lg">{{ sp_now_playing.message or 'Nothing currently playing on Spotify.' }}</p>
-                    <p class="text-sm mt-2">Check back later!</p>
-                </div>
-                {% endif %}
             </div>
         </div>
 
@@ -96,6 +102,9 @@
             </div>
         </div>
     </div>
+
+    <!-- Script for updating Spotify card -->
+    <script src="{{ url_for('static', filename='js/spotify_updater.js') }}"></script>
 </body>
 
 </html>
