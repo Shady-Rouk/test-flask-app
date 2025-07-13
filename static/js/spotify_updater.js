@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Call the function immediately when the page loads to display initial data
     updateSpotifyNowPlaying();
 
-    // Set an interval to call the function every 30 seconds (30000 milliseconds)
+    // Set an interval to call the function every 10 seconds (10000 milliseconds)
     // This keeps the Spotify information updated periodically
-    setInterval(updateSpotifyNowPlaying, 30000);
+    setInterval(updateSpotifyNowPlaying, 10000);
 });
